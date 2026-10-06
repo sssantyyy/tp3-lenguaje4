@@ -47,7 +47,7 @@ export default function App() {
     e.preventDefault();
     localStorage.removeItem('tp3_borrador');
     setFormData({ nombre: '', email: '', mensaje: '' });
-    setFormMsg('¡Mensaje enviado e historial de borrador limpiado!');
+    setFormMsg('Mensaje enviado');
   };
 
   const obtenerUbicacion = () => {
@@ -55,7 +55,7 @@ export default function App() {
       setGeoInfo('Geolocalización no soportada por el navegador.');
       return;
     }
-    setGeoInfo('Obteniendo posición...');
+    setGeoInfo('Obteniendo posición');
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         setGeoInfo(`Latitud: ${pos.coords.latitude}, Longitud: ${pos.coords.longitude}`);
@@ -100,13 +100,13 @@ export default function App() {
       {/* Página Inicio */}
       <div style={{ padding: '20px', display: activePage === 'home' ? 'block' : 'none' }}>
         <h1>Página Principal</h1>
-        <p>Bienvenido a la aplicación del TP3 (React + Vite).</p>
+        <p>TP3.</p>
         
-        <h3>Ubicación Actual (Geolocation API)</h3>
+        <h3>Ubicación Actual</h3>
         <button style={actionButtonStyle} onClick={obtenerUbicacion}>Obtener Coordenadas</button>
         <p>{geoInfo}</p>
 
-        <h3>Arrastrar y Soltar Archivos (Drag & Drop API)</h3>
+        <h3>Arrastrar y Soltar Archivos</h3>
         <div 
           style={{
             border: '2px dashed #3498db',
