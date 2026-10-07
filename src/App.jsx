@@ -49,11 +49,20 @@ export default function App() {
 
   const serviceID = 'service_ybmb6rk';
   const templateID = 'template_19j2n5i';
-  const publicKey = 'xYAlVmgLwVZcQJvs4';
+  const publicKey = 'xYAlVmgLwVzCQJvs4';
 
   setFormMsg('Enviando mensaje...');
 
-  emailjs.send(serviceID, templateID, formData, publicKey)
+  emailjs.send(
+    serviceID, 
+    templateID, 
+    {
+      nombre: formData.nombre,
+      email: formData.email,
+      mensaje: formData.mensaje
+    }, 
+    publicKey
+  )
     .then(() => {
       localStorage.removeItem('tp3_borrador');
       setFormData({ nombre: '', email: '', mensaje: '' });
