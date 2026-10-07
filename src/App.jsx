@@ -47,9 +47,9 @@ export default function App() {
   const guardarFormulario = (e) => {
   e.preventDefault();
 
-  const serviceID = 'xYAlVmgLwVZcQJvs4';
-  const templateID = 'service_ybmb6rk';
-  const publicKey = 'template_19j2n5i';
+  const serviceID = 'service_ybmb6rk';
+  const templateID = 'template_19j2n5i';
+  const publicKey = 'xYAlVmgLwVZcQJvs4';
 
   setFormMsg('Enviando mensaje...');
 
