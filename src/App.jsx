@@ -53,16 +53,13 @@ export default function App() {
 
   setFormMsg('Enviando mensaje...');
 
-  emailjs.send(
-    serviceID, 
-    templateID, 
-    {
-      nombre: formData.nombre,
-      email: formData.email,
-      mensaje: formData.mensaje
-    }, 
-    publicKey
-  )
+  emailjs.init(publicKey);
+
+  emailjs.send(serviceID, templateID, {
+    nombre: formData.nombre,
+    email: formData.email,
+    mensaje: formData.mensaje
+  })
     .then(() => {
       localStorage.removeItem('tp3_borrador');
       setFormData({ nombre: '', email: '', mensaje: '' });
