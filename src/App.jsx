@@ -1,3 +1,4 @@
+import emailjs from '@emailjs/browser';
 import React, { useState, useEffect } from 'react';
 
 export default function App() {
@@ -44,12 +45,25 @@ export default function App() {
   };
 
   const guardarFormulario = (e) => {
-    e.preventDefault();
-    localStorage.removeItem('tp3_borrador');
-    setFormData({ nombre: '', email: '', mensaje: '' });
-    setFormMsg('Mensaje enviado');
-  };
+  e.preventDefault();
 
+  const serviceID = 'xYAlVmgLwVZcQJvs4';
+  const templateID = 'service_ybmb6rk';
+  const publicKey = 'template_19j2n5i';
+
+  setFormMsg('Enviando mensaje...');
+
+  emailjs.send(serviceID, templateID, formData, publicKey)
+    .then(() => {
+      localStorage.removeItem('tp3_borrador');
+      setFormData({ nombre: '', email: '', mensaje: '' });
+      setFormMsg('¡Mensaje enviado con éxito a tu casilla de correo!');
+    })
+    .catch((error) => {
+      console.error('Error al enviar:', error);
+      setFormMsg('Hubo un error al enviar el mensaje. Revisa la consola.');
+    });
+};
   const obtenerUbicacion = () => {
     if (!navigator.geolocation) {
       setGeoInfo('Geolocalización no soportada por el navegador.');
