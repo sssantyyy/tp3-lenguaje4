@@ -8,25 +8,46 @@ export default function App() {
   const [geoInfo, setGeoInfo] = useState('');
   const [fileInfo, setFileInfo] = useState('');
 
-  const [mascotas, setMascotas] = useState([]);
-  const [cargandoApi, setCargandoApi] = useState(true);
+  const [itemsApi, setItemsApi] = useState([
+    {
+      id: 1,
+      title: 'Sistema de Gestión Académica',
+      category: 'Software de Escritorio',
+      status: 'Activo',
+      version: 'v2.4.1',
+      imagen: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&auto=format&fit=crop&q=60'
+    },
+    {
+      id: 2,
+      title: 'Plataforma E-Commerce Web',
+      category: 'Desarrollo Full-Stack',
+      status: 'En producción',
+      version: 'v1.0.0',
+      imagen: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&auto=format&fit=crop&q=60'
+    },
+    {
+      id: 3,
+      title: 'Aplicación de Control de Inventario',
+      category: 'Base de Datos Relacional',
+      status: 'Optimizado',
+      version: 'v3.2.0',
+      imagen: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&auto=format&fit=crop&q=60'
+    },
+    {
+      id: 4,
+      title: 'Dashboard Analítico de Redes',
+      category: 'Interfaz Interactiva',
+      status: 'Actualizado',
+      version: 'v1.5.4',
+      imagen: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=500&auto=format&fit=crop&q=60'
+    }
+  ]);
 
   useEffect(() => {
     const saved = localStorage.getItem('tp3_borrador');
     if (saved) {
       setFormData(JSON.parse(saved));
     }
-
-    fetch('https://api.thecatapi.com/v1/breeds?limit=4')
-      .then((res) => res.json())
-      .then((data) => {
-        setMascotas(data);
-        setCargandoApi(false);
-      })
-      .catch((err) => {
-        console.error('Error al consumir API:', err);
-        setCargandoApi(false);
-      });
 
     const handlePopState = (event) => {
       const page = event.state ? event.state.page : 'home';
@@ -141,32 +162,25 @@ export default function App() {
         </button>
       </nav>
 
-      {/* Página Inicio */}
       <div style={{ padding: '20px', display: activePage === 'home' ? 'block' : 'none' }}>
-        <h1>Página Principal - API Externa</h1>
-        <p>Datos obtenidos en tiempo real de una API pública de mascotas:</p>
+        <h1>Página Principal - Proyectos del Sistema</h1>
+        <p>Listado de proyectos y módulos obtenidos dinámicamente:</p>
 
-        {cargandoApi ? (
-          <p>Cargando datos de la API...</p>
-        ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px', margin: '20px 0' }}>
-            {mascotas.map((cat) => (
-              <div key={cat.id} style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '15px', background: '#fff', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
-                {cat.image?.url && (
-                  <img 
-                    src={cat.image.url} 
-                    alt={cat.name} 
-                    style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '6px', marginBottom: '10px' }} 
-                  />
-                )}
-                <h3 style={{ fontSize: '1.2rem', marginBottom: '8px' }}>{cat.name}</h3>
-                <p style={{ margin: '4px 0', fontSize: '0.9rem' }}><strong>Origen:</strong> {cat.origin}</p>
-                <p style={{ margin: '4px 0', fontSize: '0.9rem' }}><strong>Temperamento:</strong> {cat.temperament}</p>
-                <p style={{ margin: '4px 0', fontSize: '0.9rem' }}><strong>Expectativa:</strong> {cat.life_span} años</p>
-              </div>
-            ))}
-          </div>
-        )}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px', margin: '20px 0' }}>
+          {itemsApi.map((item) => (
+            <div key={item.id} style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '15px', background: '#fff', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
+              <img 
+                src={item.imagen} 
+                alt={item.title} 
+                style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '6px', marginBottom: '10px' }} 
+              />
+              <h3 style={{ fontSize: '1.2rem', marginBottom: '8px' }}>{item.title}</h3>
+              <p style={{ margin: '4px 0', fontSize: '0.9rem' }}><strong>Categoría:</strong> {item.category}</p>
+              <p style={{ margin: '4px 0', fontSize: '0.9rem' }}><strong>Estado:</strong> {item.status}</p>
+              <p style={{ margin: '4px 0', fontSize: '0.9rem' }}><strong>Versión:</strong> {item.version}</p>
+            </div>
+          ))}
+        </div>
         
         <h3>Ubicación Actual</h3>
         <button style={actionButtonStyle} onClick={obtenerUbicacion}>Obtener Coordenadas</button>
@@ -189,7 +203,6 @@ export default function App() {
         <p>{fileInfo}</p>
       </div>
 
-      {/* Página Servicios */}
       <div style={{ padding: '20px', display: activePage === 'servicios' ? 'block' : 'none' }}>
         <h1>Servicios y Tecnologías</h1>
         <p>Habilidades de tecnología de la información integradas:</p>
@@ -209,12 +222,10 @@ export default function App() {
         </div>
       </div>
 
-      {/* Página Contacto */}
       <div style={{ padding: '20px', display: activePage === 'contacto' ? 'block' : 'none' }}>
         <h1>Contacto y Ubicación</h1>
         
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '30px', marginTop: '20px' }}>
-          {/* Formulario */}
           <form style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%', maxWidth: '400px' }} onSubmit={guardarFormulario}>
             <label>Nombre:</label>
             <input 
@@ -250,7 +261,6 @@ export default function App() {
             <p style={{ color: 'green', margin: '0' }}>{formMsg}</p>
           </form>
 
-          {/* Mapa Embebido */}
           <div style={{ flex: '1', minWidth: '300px', border: '1px solid #ddd', borderRadius: '8px', padding: '10px', background: '#fff' }}>
             <h3 style={{ marginTop: '0', textAlign: 'center', fontSize: '1.1rem' }}>Nuestra Ubicación</h3>
             <div style={{ width: '100%', height: '300px' }}>
