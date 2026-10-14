@@ -164,7 +164,6 @@ export default function App() {
 
       <div style={{ padding: '20px', display: activePage === 'home' ? 'block' : 'none' }}>
         <h1>Página Principal - Proyectos del Sistema</h1>
-        <p>Listado de proyectos y módulos obtenidos dinámicamente:</p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px', margin: '20px 0' }}>
           {itemsApi.map((item) => (
@@ -205,7 +204,6 @@ export default function App() {
 
       <div style={{ padding: '20px', display: activePage === 'servicios' ? 'block' : 'none' }}>
         <h1>Servicios y Tecnologías</h1>
-        <p>Habilidades de tecnología de la información integradas:</p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginTop: '20px' }}>
           {serviciosData.map((serv) => (
